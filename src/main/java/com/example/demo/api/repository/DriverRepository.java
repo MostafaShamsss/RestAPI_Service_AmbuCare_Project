@@ -8,12 +8,8 @@ import java.util.List;
 
 public interface DriverRepository extends CrudRepository<Driver, Integer> {
     @Query("SELECT d FROM Driver d")
-    List<Driver> getAllDrivers();    Driver findDriverById(Integer id);
-//void createDriver(Driver driver);
+    List<Driver> getAllDrivers();
+    Driver findDriverById(Integer id);
 
-//void deleteDriver(Integer id);
-//
-//void updateDriver(Integer id, Driver driver);
-//
-//Driver getNearestDriver(float driverLocationLat, float driverLocationLong);
+
 }
