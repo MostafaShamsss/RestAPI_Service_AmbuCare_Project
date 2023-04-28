@@ -28,7 +28,8 @@ public class UserService {
             existingUser.setDriverCarNumber(user.getDriverCarNumber());
             existingUser.setDriverPhoneNumber(user.getDriverPhoneNumber());
             existingUser.setDriverEstimatedTime(user.getDriverEstimatedTime());
-            existingUser.setDriverLocation(user.getDriverLocation());
+            existingUser.setDriverLocationLat(user.getDriverLocationLat());
+            existingUser.setDriverLocationLat(user.getDriverLocationLong());
             return userRepository.save(existingUser);
         } else {
             return null;

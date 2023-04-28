@@ -1,25 +1,47 @@
 package com.example.demo.api.model;
 
-public class User
-{
-    int id;
-    String driverName;
-    String driverCarNumber;
-    String driverPhoneNumber;
-    String driverEstimatedTime;
 
-    float driverLocationLat;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-    float driverLocationLong;
+@Entity
+public class Driver {
 
-    public User(int id, String driverName, String driverCarNumber, String driverPhoneNumber, String driverEstimatedTime, float driverLocationLat, float driverLocationLong) {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
+    private String driverName;
+    private String driveCarNumber;
+
+    private String driverPhoneNumber;
+
+    private String driverEstimatedTime;
+
+    private float driverLocationLat;
+
+    private float driverLocationLong;
+
+    public Driver() {
+    }
+
+    public Driver(int id, String driverName, String driveCarNumber, String driverPhoneNumber, String driverEstimatedTime, float driverLocationLat, float driverLocationLong) {
         this.id = id;
         this.driverName = driverName;
-        this.driverCarNumber = driverCarNumber;
+        this.driveCarNumber = driveCarNumber;
         this.driverPhoneNumber = driverPhoneNumber;
         this.driverEstimatedTime = driverEstimatedTime;
         this.driverLocationLat = driverLocationLat;
         this.driverLocationLong = driverLocationLong;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDriverName() {
@@ -30,12 +52,12 @@ public class User
         this.driverName = driverName;
     }
 
-    public String getDriverCarNumber() {
-        return driverCarNumber;
+    public String getDriveCarNumber() {
+        return driveCarNumber;
     }
 
-    public void setDriverCarNumber(String driverCarNumber) {
-        this.driverCarNumber = driverCarNumber;
+    public void setDriveCarNumber(String driveCarNumber) {
+        this.driveCarNumber = driveCarNumber;
     }
 
     public String getDriverPhoneNumber() {
@@ -52,14 +74,6 @@ public class User
 
     public void setDriverEstimatedTime(String driverEstimatedTime) {
         this.driverEstimatedTime = driverEstimatedTime;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public float getDriverLocationLat() {
