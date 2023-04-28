@@ -36,6 +36,28 @@ public class Driver {
         this.driverLocationLong = driverLocationLong;
     }
 
+    public Driver(String driverName, String driveCarNumber, String driverPhoneNumber, String driverEstimatedTime, float driverLocationLat, float driverLocationLong) {
+        this.driverName = driverName;
+        this.driveCarNumber = driveCarNumber;
+        this.driverPhoneNumber = driverPhoneNumber;
+        this.driverEstimatedTime = driverEstimatedTime;
+        this.driverLocationLat = driverLocationLat;
+        this.driverLocationLong = driverLocationLong;
+    }
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "id=" + id +
+                ", driverName='" + driverName + '\'' +
+                ", driveCarNumber='" + driveCarNumber + '\'' +
+                ", driverPhoneNumber='" + driverPhoneNumber + '\'' +
+                ", driverEstimatedTime='" + driverEstimatedTime + '\'' +
+                ", driverLocationLat=" + driverLocationLat +
+                ", driverLocationLong=" + driverLocationLong +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
