@@ -28,7 +28,7 @@ public class SpringApiApplication {
 
 			log.info("Drivers found with findAll():");
 			log.info("-------------------------------");
-			for (Driver driver : repository.findAll()) {
+			for (Driver driver : repository.findAvailableDrivers()) {
 				log.info(driver.toString());
 			}
 			log.info("");

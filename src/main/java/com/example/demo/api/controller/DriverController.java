@@ -1,6 +1,7 @@
 package com.example.demo.api.controller;
 import com.example.demo.api.model.Driver;
 import com.example.demo.api.model.LocationDTO;
+import com.example.demo.api.model.status;
 import com.example.demo.api.repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,20 +9,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import static java.lang.Math.sqrt;
-
 @RestController
 public class DriverController {
     @Autowired
-    DriverRepository driverRespository;
+    DriverRepository driverRepository;
     @GetMapping("/drivers")
     public List<Driver> getAll(){
-        return (List<Driver>) driverRespository.findAll();
+        return (List<Driver>) driverRepository.findAll();
     }
     @GetMapping("/drivers/{id}")
     public Optional<Driver> getByID(@PathVariable String id){
         Integer ID = Integer.parseInt(id);
-        return driverRespository.findById(ID);
+        return driverRepository.findById(ID);
 
     }
     @PostMapping("/drivers/nearest")
@@ -31,7 +30,7 @@ public class DriverController {
 
         Driver closestDriver = null;
         double minDistance = Double.MAX_VALUE;
-        List<Driver> drivers = (List<Driver>) driverRespository.findAll();
+        List<Driver> drivers = (List<Driver>) driverRepository.findAvailableDrivers();
 
         for (Driver driver : drivers) {
             double distance = calculateDistance(driverLocationLat,driverLocationLong,
@@ -44,6 +43,21 @@ public class DriverController {
 
         return Optional.ofNullable(closestDriver);
     }
+    @PostMapping("/drivers/confirm/{id}")
+    public String confirmRequest(@PathVariable String id){
+        int rowsAffected = driverRepository.updateDriverStatus(Integer.valueOf(id), status.Unavailable);
+        if(rowsAffected > 0){
+            return "Successful";
+        }
+        else{
+            return "Not successful";
+        }
+    }
+
+
+
+
+
     private float calculateDistance(double requestLat,double requestLong,double driverLong, double driverLat){
         double distance = Math.sqrt(Math.pow((driverLong - requestLong),
                 2) + Math.pow((driverLat - requestLat),2));
