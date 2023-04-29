@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 public class Driver {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String driverName;
     private String driveCarNumber;

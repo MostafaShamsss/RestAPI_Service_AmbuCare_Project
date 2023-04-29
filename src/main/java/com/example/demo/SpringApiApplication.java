@@ -22,9 +22,10 @@ public class SpringApiApplication {
 	public CommandLineRunner demo2(DriverRepository repository) {
 		return (args) -> {
 
-			repository.save(new Driver("Ahmed","123 ss","+201011575147","127 minutes",128.0f,129.0f));
+//			repository.save(new Driver("Ahmed","123 ss","+201011575147","6 minutes",7.0f,9.0f));
+//			repository.insertData("Omar","259 bas","+201115483248","5 minutes",120.0f,125.0f);
+//			repository.insertData("Shehab","259 bas","+201115483248","5 minutes",120.0f,125.0f);
 
-			// fetch all animals
 			log.info("Drivers found with findAll():");
 			log.info("-------------------------------");
 			for (Driver driver : repository.findAll()) {

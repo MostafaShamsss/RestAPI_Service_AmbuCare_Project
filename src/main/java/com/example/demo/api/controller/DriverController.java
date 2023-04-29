@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.Math.sqrt;
+
 @RestController
 public class DriverController {
     @Autowired
@@ -27,8 +29,26 @@ public class DriverController {
         float driverLocationLat = location.getLatitude();
         float driverLocationLong = location.getLongitude();
 
+        Driver closestDriver = null;
+        double minDistance = Double.MAX_VALUE;
         List<Driver> drivers = (List<Driver>) driverRespository.findAll();
 
-        return Optional.ofNullable(drivers.get(0));
+        for (Driver driver : drivers) {
+            double distance = calculateDistance(driverLocationLat,driverLocationLong,
+                    driver.getDriverLocationLong(),driver.getDriverLocationLat());
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestDriver =driver;
+}
+        }
+
+        return Optional.ofNullable(closestDriver);
+    }
+    private float calculateDistance(double requestLat,double requestLong,double driverLong, double driverLat){
+        double distance = Math.sqrt(Math.pow((driverLong - requestLong),
+                2) + Math.pow((driverLat - requestLat),2));
+
+    return (float) distance;
+
     }
 }
