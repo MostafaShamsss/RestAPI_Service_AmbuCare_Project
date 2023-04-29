@@ -1,10 +1,7 @@
 package com.example.demo.api.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Driver {
@@ -18,7 +15,8 @@ public class Driver {
     private String driverPhoneNumber;
 
     private String driverEstimatedTime;
-
+    @Enumerated(EnumType.STRING)
+    private status driverStatus;
     private float driverLocationLat;
 
     private float driverLocationLong;
@@ -26,21 +24,16 @@ public class Driver {
     public Driver() {
     }
 
-    public Driver(int id, String driverName, String driveCarNumber, String driverPhoneNumber, String driverEstimatedTime, float driverLocationLat, float driverLocationLong) {
+
+    public Driver(int id, String driverName, String driveCarNumber, String driverPhoneNumber,
+                  String driverEstimatedTime, status driverStatus, float driverLocationLat, float driverLocationLong)
+    {
         this.id = id;
         this.driverName = driverName;
         this.driveCarNumber = driveCarNumber;
         this.driverPhoneNumber = driverPhoneNumber;
         this.driverEstimatedTime = driverEstimatedTime;
-        this.driverLocationLat = driverLocationLat;
-        this.driverLocationLong = driverLocationLong;
-    }
-
-    public Driver(String driverName, String driveCarNumber, String driverPhoneNumber, String driverEstimatedTime, float driverLocationLat, float driverLocationLong) {
-        this.driverName = driverName;
-        this.driveCarNumber = driveCarNumber;
-        this.driverPhoneNumber = driverPhoneNumber;
-        this.driverEstimatedTime = driverEstimatedTime;
+        this.driverStatus = driverStatus;
         this.driverLocationLat = driverLocationLat;
         this.driverLocationLong = driverLocationLong;
     }
@@ -53,9 +46,18 @@ public class Driver {
                 ", driveCarNumber='" + driveCarNumber + '\'' +
                 ", driverPhoneNumber='" + driverPhoneNumber + '\'' +
                 ", driverEstimatedTime='" + driverEstimatedTime + '\'' +
+                ", driverStatus=" + driverStatus +
                 ", driverLocationLat=" + driverLocationLat +
                 ", driverLocationLong=" + driverLocationLong +
                 '}';
+    }
+
+    public status getDriverStatus() {
+        return driverStatus;
+    }
+
+    public void setDriverStatus(status driverStatus) {
+        this.driverStatus = driverStatus;
     }
 
     public int getId() {
