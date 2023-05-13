@@ -14,7 +14,6 @@ public class Driver {
 
     private String driverPhoneNumber;
 
-    private String driverEstimatedTime;
     @Enumerated(EnumType.STRING)
     private status driverStatus;
     private float driverLocationLat;
@@ -26,13 +25,12 @@ public class Driver {
 
 
     public Driver(int id, String driverName, String driveCarNumber, String driverPhoneNumber,
-                  String driverEstimatedTime, status driverStatus, float driverLocationLat, float driverLocationLong)
+                  status driverStatus, float driverLocationLat, float driverLocationLong)
     {
         this.id = id;
         this.driverName = driverName;
         this.driveCarNumber = driveCarNumber;
         this.driverPhoneNumber = driverPhoneNumber;
-        this.driverEstimatedTime = driverEstimatedTime;
         this.driverStatus = driverStatus;
         this.driverLocationLat = driverLocationLat;
         this.driverLocationLong = driverLocationLong;
@@ -45,7 +43,6 @@ public class Driver {
                 ", driverName='" + driverName + '\'' +
                 ", driveCarNumber='" + driveCarNumber + '\'' +
                 ", driverPhoneNumber='" + driverPhoneNumber + '\'' +
-                ", driverEstimatedTime='" + driverEstimatedTime + '\'' +
                 ", driverStatus=" + driverStatus +
                 ", driverLocationLat=" + driverLocationLat +
                 ", driverLocationLong=" + driverLocationLong +
@@ -90,14 +87,6 @@ public class Driver {
 
     public void setDriverPhoneNumber(String driverPhoneNumber) {
         this.driverPhoneNumber = driverPhoneNumber;
-    }
-
-    public String getDriverEstimatedTime() {
-        return driverEstimatedTime;
-    }
-
-    public void setDriverEstimatedTime(String driverEstimatedTime) {
-        this.driverEstimatedTime = driverEstimatedTime;
     }
 
     public float getDriverLocationLat() {
