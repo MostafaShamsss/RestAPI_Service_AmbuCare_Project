@@ -58,6 +58,17 @@ public class DriverController {
         }
     }
 
+    @PostMapping("/drivers/cancel/{id}")
+    public String cancelRequest(@PathVariable String id) {
+        int rowsAffected = driverRepository.updateDriverStatus(Integer.valueOf(id), status.Available);
+        if (rowsAffected > 0) {
+            return "Successful";
+        } else {
+            return "Not successful";
+        }
+    }
+
+
     /**
      * Create a new driver
      */
