@@ -1,4 +1,5 @@
 package com.example.demo.api.controller;
+
 import com.example.demo.api.model.Driver;
 import com.example.demo.api.model.LocationDTO;
 import com.example.demo.api.model.status;
@@ -13,18 +14,21 @@ import java.util.Optional;
 public class DriverController {
     @Autowired
     DriverRepository driverRepository;
+
     @GetMapping("/drivers")
-    public List<Driver> getAll(){
+    public List<Driver> getAll() {
         return (List<Driver>) driverRepository.findAll();
     }
+
     @GetMapping("/drivers/{id}")
-    public Optional<Driver> getByID(@PathVariable String id){
+    public Optional<Driver> getByID(@PathVariable String id) {
         Integer ID = Integer.parseInt(id);
         return driverRepository.findById(ID);
 
     }
+
     @PostMapping("/drivers/nearest")
-    public Optional<Driver> getByNearestDriver (@RequestBody LocationDTO location){
+    public Optional<Driver> getByNearestDriver(@RequestBody LocationDTO location) {
         float driverLocationLat = location.getLatitude();
         float driverLocationLong = location.getLongitude();
 
@@ -33,36 +37,40 @@ public class DriverController {
         List<Driver> drivers = (List<Driver>) driverRepository.findAvailableDrivers();
 
         for (Driver driver : drivers) {
-            double distance = calculateDistance(driverLocationLat,driverLocationLong,
-                    driver.getDriverLocationLong(),driver.getDriverLocationLat());
+            double distance = calculateDistance(driverLocationLat, driverLocationLong,
+                    driver.getDriverLocationLong(), driver.getDriverLocationLat());
             if (distance < minDistance) {
                 minDistance = distance;
-                closestDriver =driver;
-}
+                closestDriver = driver;
+            }
         }
 
         return Optional.ofNullable(closestDriver);
     }
+
     @PostMapping("/drivers/confirm/{id}")
-    public String confirmRequest(@PathVariable String id){
+    public String confirmRequest(@PathVariable String id) {
         int rowsAffected = driverRepository.updateDriverStatus(Integer.valueOf(id), status.Unavailable);
-        if(rowsAffected > 0){
+        if (rowsAffected > 0) {
             return "Successful";
-        }
-        else{
+        } else {
             return "Not successful";
         }
     }
 
+    /**
+     * Create a new driver
+     */
+    @PostMapping("/drivers")
+    public Driver createDriver(@RequestBody Driver newDriver) {
+        return driverRepository.save(newDriver);
+    }
 
-
-
-
-    private float calculateDistance(double requestLat,double requestLong,double driverLong, double driverLat){
+    private float calculateDistance(double requestLat, double requestLong, double driverLong, double driverLat) {
         double distance = Math.sqrt(Math.pow((driverLong - requestLong),
-                2) + Math.pow((driverLat - requestLat),2));
+                2) + Math.pow((driverLat - requestLat), 2));
 
-    return (float) distance;
+        return (float) distance;
 
     }
 }

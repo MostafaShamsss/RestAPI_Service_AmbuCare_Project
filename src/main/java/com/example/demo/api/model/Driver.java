@@ -15,7 +15,7 @@ public class Driver {
     private String driverPhoneNumber;
 
     @Enumerated(EnumType.STRING)
-    private status driverStatus;
+    private status driverStatus = status.Available;
     private float driverLocationLat;
 
     private float driverLocationLong;
@@ -23,6 +23,14 @@ public class Driver {
     public Driver() {
     }
 
+    public Driver(String driverName, String driveCarNumber, String driverPhoneNumber, status driverStatus, float driverLocationLat, float driverLocationLong) {
+        this.driverName = driverName;
+        this.driveCarNumber = driveCarNumber;
+        this.driverPhoneNumber = driverPhoneNumber;
+        this.driverStatus = driverStatus;
+        this.driverLocationLat = driverLocationLat;
+        this.driverLocationLong = driverLocationLong;
+    }
 
     public Driver(int id, String driverName, String driveCarNumber, String driverPhoneNumber,
                   status driverStatus, float driverLocationLat, float driverLocationLong)

@@ -23,8 +23,8 @@ public class SpringApiApplication {
 		return (args) -> {
 
 //			repository.save(new Driver("Ahmed","123 ss","+201011575147","6 minutes",7.0f,9.0f));
-//			repository.insertData("Omar","259 bas","+201115483248","5 minutes",120.0f,125.0f);
-//			repository.insertData("Shehab","259 bas","+201115483248","5 minutes",120.0f,125.0f);
+//			repository.insertData("Omar","259 bas","+201115483248",120.0f,125.0f);
+//			repository.insertData("Shehab","259 bas","+201115483248",120.0f,125.0f);
 
 			log.info("Drivers found with findAll():");
 			log.info("-------------------------------");

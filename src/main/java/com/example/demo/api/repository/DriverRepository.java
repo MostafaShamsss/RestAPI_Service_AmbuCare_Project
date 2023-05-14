@@ -17,8 +17,8 @@ public interface DriverRepository extends CrudRepository<Driver, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO driver(driver_name, drive_car_number, driver_phone_number, driver_estimated_time, driver_location_lat, driver_location_long) VALUES (:driverName, :driveCarNumber, :driverPhoneNumber, :driverEstimatedTime, :driverLocationLat, :driverLocationLong)", nativeQuery = true)
-    void insertData(@Param("driverName") String driverName, @Param("driveCarNumber") String driveCarNumber, @Param("driverPhoneNumber") String driverPhoneNumber, @Param("driverEstimatedTime") String driverEstimatedTime, @Param("driverLocationLat") float driverLocationLat, @Param("driverLocationLong") float driverLocationLong);
+    @Query(value = "INSERT INTO driver(driver_name, drive_car_number, driver_phone_number, driver_location_lat, driver_location_long) VALUES (:driverName, :driveCarNumber, :driverPhoneNumber, :driverLocationLat, :driverLocationLong)", nativeQuery = true)
+    void insertData(@Param("driverName") String driverName, @Param("driveCarNumber") String driveCarNumber, @Param("driverPhoneNumber") String driverPhoneNumber, @Param("driverLocationLat") float driverLocationLat, @Param("driverLocationLong") float driverLocationLong);
 
     @Query("SELECT d FROM Driver d WHERE d.driverStatus = 'Available'")
     List<Driver> findAvailableDrivers();
