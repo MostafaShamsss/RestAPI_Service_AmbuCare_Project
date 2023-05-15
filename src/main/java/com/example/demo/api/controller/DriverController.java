@@ -15,7 +15,7 @@ import java.util.Optional;
 public class DriverController {
     @Autowired
     DriverRepository driverRepository;
-    @RateLimit(limit = 5, timeout = 1) // limit to 5 requests per minute
+    @RateLimit(limit = 1, timeout = 1) // limit to 5 requests per minute
     @GetMapping("/drivers")
     public List<Driver> getAll() {
         return (List<Driver>) driverRepository.findAll();
