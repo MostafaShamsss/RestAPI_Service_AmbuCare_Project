@@ -4,6 +4,7 @@ import com.example.demo.api.model.Driver;
 import com.example.demo.api.model.LocationDTO;
 import com.example.demo.api.model.status;
 import com.example.demo.api.repository.DriverRepository;
+import com.example.demo.interfaces.RateLimit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class DriverController {
     @Autowired
     DriverRepository driverRepository;
-
+    @RateLimit(limit = 1, timeout = 1) // limit to 5 requests per minute
     @GetMapping("/drivers")
     public List<Driver> getAll() {
         return (List<Driver>) driverRepository.findAll();
