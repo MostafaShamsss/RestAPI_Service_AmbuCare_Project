@@ -45,7 +45,6 @@ public class DriverController {
                 closestDriver = driver;
             }
         }
-
         return Optional.ofNullable(closestDriver);
     }
 
