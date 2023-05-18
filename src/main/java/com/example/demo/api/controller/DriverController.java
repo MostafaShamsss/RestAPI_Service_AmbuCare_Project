@@ -4,8 +4,11 @@ import com.example.demo.api.model.Driver;
 import com.example.demo.api.model.LocationDTO;
 import com.example.demo.api.model.status;
 import com.example.demo.api.repository.DriverRepository;
+import com.example.demo.exceptions.RateLimitException;
 import com.example.demo.interfaces.RateLimit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +20,12 @@ public class DriverController {
     DriverRepository driverRepository;
     @RateLimit(limit = 1, timeout = 1) // limit to 5 requests per minute
     @GetMapping("/drivers")
-    public List<Driver> getAll() {
-        return (List<Driver>) driverRepository.findAll();
+    @ExceptionHandler(RateLimitException.class)
+
+    public ResponseEntity<?> getAll() {
+            return ResponseEntity.ok(driverRepository.findAll());
     }
+
 
     @GetMapping("/drivers/{id}")
     public Optional<Driver> getByID(@PathVariable String id) {

@@ -1,5 +1,6 @@
 package com.example.demo.aspects;
 
+import com.example.demo.exceptions.RateLimitException;
 import com.example.demo.interfaces.RateLimit;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -38,7 +39,7 @@ public class RateLimiterAspect {
                 limitMap.put(ip, 1);
                 timeoutMap.remove(ip);
             } else {
-                throw new RuntimeException("Rate limit exceeded. Try again in " + timeout.minusMinutes(LocalDateTime.now().getMinute()).getMinute() + " minutes.");
+                throw new RateLimitException("Rate limit exceeded. Try again in " + timeout.minusMinutes(LocalDateTime.now().getMinute()).getMinute() + " minutes.");
             }
         } else {
             limitMap.put(ip, limit + 1);
