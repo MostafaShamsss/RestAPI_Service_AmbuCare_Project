@@ -18,7 +18,7 @@ import java.util.Optional;
 public class DriverController {
     @Autowired
     DriverRepository driverRepository;
-    @RateLimit(limit = 1, timeout = 1) // limit to 5 requests per minute
+    @RateLimit(limit = 1000, timeout = 1) // limit to 5 requests per minute
     @GetMapping("/drivers")
     @ExceptionHandler(RateLimitException.class)
 
@@ -55,22 +55,22 @@ public class DriverController {
     }
 
     @PostMapping("/drivers/confirm/{id}")
-    public String confirmRequest(@PathVariable String id) {
+    public ResponseEntity<String> confirmRequest(@PathVariable String id) {
         int rowsAffected = driverRepository.updateDriverStatus(Integer.valueOf(id), status.Unavailable);
         if (rowsAffected > 0) {
-            return "Successful";
+            return ResponseEntity.ok("{\"message\": \"Successful\"}");
         } else {
-            return "Not successful";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"message\": \"Not successful\"}");
         }
     }
 
     @PostMapping("/drivers/cancel/{id}")
-    public String cancelRequest(@PathVariable String id) {
+    public ResponseEntity<String> cancelRequest(@PathVariable String id) {
         int rowsAffected = driverRepository.updateDriverStatus(Integer.valueOf(id), status.Available);
         if (rowsAffected > 0) {
-            return "Successful";
+            return ResponseEntity.ok("{\"message\": \"Successful\"}");
         } else {
-            return "Not successful";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"message\": \"Not successful\"}");
         }
     }
 
