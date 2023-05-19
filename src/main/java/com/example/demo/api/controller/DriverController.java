@@ -18,10 +18,10 @@ import java.util.Optional;
 public class DriverController {
     @Autowired
     DriverRepository driverRepository;
+
     @RateLimit(limit = 1000, timeout = 1) // limit to 5 requests per minute
     @GetMapping("/drivers")
     @ExceptionHandler(RateLimitException.class)
-
     public ResponseEntity<?> getAll() {
             return ResponseEntity.ok(driverRepository.findAll());
     }
@@ -33,7 +33,9 @@ public class DriverController {
         return driverRepository.findById(ID);
 
     }
-
+/**
+ * Get by nearest driver controller
+ * */
     @PostMapping("/drivers/nearest")
     public Optional<Driver> getByNearestDriver(@RequestBody LocationDTO location) {
         float driverLocationLat = location.getLatitude();

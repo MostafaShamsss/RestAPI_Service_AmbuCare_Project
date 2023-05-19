@@ -1,5 +1,6 @@
 package com.example.demo.aspects;
 import com.example.demo.exceptions.RateLimitException;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
@@ -16,9 +17,10 @@ public class ErrorHandlingAspect {
      * Log every exception
      * */
     @AfterThrowing(pointcut = "within(@org.springframework.web.bind.annotation.RestController *)", throwing = "ex")
-    public void handleRestControllerException(Exception ex) {
-        logger.error("Exception occurred: {}", ex.getMessage());
+    public void handleRestControllerException(JoinPoint joinPoint, Exception ex) {
+        logger.error("Exception occurred in method: {}. Exception message: {}", joinPoint.getSignature().toShortString(), ex.getMessage());
     }
+
     /**
      * Return 429 status code when
      * Rate limit exception thrown
